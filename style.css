@@ -1,82 +1,97 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
     background-color: #f1f1f1;
-}
-
-nav ul {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* добавляем тень */
+  }
+  
+  nav ul {
     list-style: none;
-}
-
-nav ul li {
-    display: inline-block;
+    display: flex; /* изменяем на flex, чтобы ссылки были в ряд */
+  }
+  
+  nav ul li {
     margin-right: 20px;
-}
-
-nav ul li a {
+  }
+  
+  nav ul li a {
     text-decoration: none;
     color: #000;
     font-weight: bold;
-}
-
-.logo img {
-    height: 50px;
-    margin-right: 10px;
-}
-
-.logo h1 {
-    font-size: 28px;
-}
-
-main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-
-h2 {
-    font-size: 24px;
-    margin: 20px 0;
-}
-
-ul {
-    list-style: disc;
-    margin-left: 20px;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-footer {
-    background-color: #f1f1f1;
-    padding: 20px;
+  }
+  
+  .logo {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.contact-info p {
-    margin-bottom: 10px;
-}
-
-.social-icons a {
-    display: inline-block;
+  }
+  
+  .logo img {
+    height: 50px;
     margin-right: 10px;
-}
+  }
+  
+  .logo h1 {
+    font-size: 28px;
+    margin: 0;
+  }
+  
+  main {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0 20px;
+    background-color: #f1f1f1; /* добавляем цвет фона */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* добавляем тень */
+  }
+  
+  footer {
+    background-color: #002244; /* меняем цвет на темно-синий */
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2); /* добавляем тень */
+  }
 
-.social-icons img {
-    height: 30px;
+  .tabcontent {
+    display: block;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 450px;
+  }
+.tabcontent:last-child{
+    display: block;
 }
+  .tablinks {
+    margin-top: 20px;
+  }
 
-footer p {
-    font-size: 14px;
-}
+  button {
+    width: 150px;
+  }
+
+  input {
+    width: 200px;
+  }
+
+  .tabs a span {
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    width: 100px;
+    margin-right: 10px;
+    text-align: center;
+    background: #ddd;
+    padding: 5px;
+  }
+  
+  .tabcontent {
+    display: none;
+  }
+  
+  .active {
+    background: #ccc;
+  }
+  

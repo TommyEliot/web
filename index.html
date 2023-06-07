@@ -1,56 +1,149 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Электронная библиотека документов</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Электронная библиотека документов</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="FAQ.html">FAQ</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Сервисы</a></li>
-                <li><a href="#">Свяжитесь с нами</a></li>
-            </ul>
-        </nav>
-        <div class="logo">
-            <img src="https://yandex-images.clstorage.net/SoNP97372/c2c8f7jE-/e4497LFis3dWmocQTVK5avkZUTU14It0_hEynUsp5pn7QmTRJgFuFf4PwJ9lK1HdnBiRgCfdSAqenA1mgNpFVxvDaPWAS68CA9-XbR1ytX7xbCQ5cZHjZYp4O-w3cdvx11cwmG4gejX_PtCjcLOoAFXNDH2zdI3OKtBBPty3CDpvwliE_X4CsmJK9uSRElGaVWzxgbW1d_0GeQsIK7QPeLYWddzyRCexj1bB6njvkNQ1FeTlN5SxKk7AsWu0dzg-S4IBOJV6coO2FlYQyZqV6vkoUQkRmdMBUh1HCEesP2SWGqmgwkD_basWJfJgm0hshVFMDTt4zfKiWDEnSJcoLnveARCZTp5rBo6OvHHSXVq94GVlhVmL-UKhY2BL0CtAxqbZHP7cn41D5g2KBH8wWHmBwNGf7Fmm9lSBV2Bj5BJzBp2Y0eIm13K2zrwlktn2RUhlUWlpM7EqCWMot3TncLYmaRhmPJdVt04J_hgDmDB9kZjZT8TJOg7AhVsoW5SSy56BsK0Gxlsiau6QhZ6lMv1kwSGVEavZsvE3ANs088TGRkngMvQX_VcOuVos_8hk5dW4nTtwmWZ6MEGHVJsAJruS3fRpckqDPlJ-9BW2BWKxsKnBSaHTgRb1E9TbNKeo5vaZNCr0-_GLBgHOUPfMvHUdSGmjyI1SMoBBVyTHuBIf8oGwgcJCr84-6vCNMiWiaSBxQa3pU-1CVStUT1Tn0IL2VYw6wAfJvw4BXnzf0MiBIdD9owxBUjLENb8AE2w-P8IN9KG-Xnt-FlocnQoFaiF8RRGZvf_NBqH3uE-8h_z-ziE0Ihx3aSN6vQ5gF_ygCXUsVffwrSbyiI1v4J_MyjMagQBR-p6DdloGEOmOveI1vMFBKVmTXVYNx-CPcItY8sLVpEY8W0HfRhkOPOOcxLENXHnXCIEyrthBa9hzwLJTEq04GZbmB7JCUjCFwjHG_bypWan9k9myAW9EC4yo" alt="Электронная библиотека документов">
-            <h1>Электронная библиотека докуметов</h1>
-        </div>
-    </header>
-    
-    <main>
-        <h2>Введение</h2>
-        <p>Добро пожаловать в нашу библиотеку электронных документов! Наша библиотека предоставляет удобный и безопасный способ хранения, систематизации и доступа к электронным документам. С нашей библиотекой вы можете легко искать и находить нужные документы, не утруждая себя поиском в бумажных файлах или электронных письмах.</p>
-        
-        <h2>Особенности</h2>
+  <header>
+    <nav>
+      <div class="logo">
+        <img
+          src="https://avatars.mds.yandex.net/i?id=0aab4d4940cc85f7af28580d54035486805635ca-7716570-images-thumbs&n=13&exp=1"
+          alt="Электронная библиотека документов">
+        <h1>Электронная библиотека докуметов</h1>
+      </div>
+  </header>
+  <main>
+    <div
+      style="background-image: url(https://cdn.wallpapersafari.com/61/43/r3TMxh.jpg); background-size: cover; height: 500px;">
+    </div>
+    <div class="tabs">
+      <a href="#" onclick="openTab(event, 'new-docs')"><span class="active">Новые</span></a>
+      <a href="#" onclick="openTab(event, 'old-docs')"><span>Старые</span></a>
+      <a href="#" onclick="openTab(event, 'add-doc')"><span>Добавить</span></a>
+    </div>    
+    <div class="content">
+      <div id="new-docs" class="tabcontent">
         <ul>
-            <li>Удобный интерфейс для загрузки и управления документами</li>
-            <li>Мощные возможности поиска для быстрого поиска необходимых документов</li>
-            <li>Безопасное хранение и доступ к вашим электронным документам</li>
-            <li>Настраиваемые категории документов и теги для удобной организации</li>
+          <!-- Здесь отображаются новые документы -->
+
         </ul>
-    </main>
+      </div>
+      <div id="old-docs" class="tabcontent">
+        <ul>
+          <!-- Здесь отображаются старые документы -->
+        </ul>
+      </div>
+      <div id="add-doc" class="tabcontent">
+        <form>
+          <input type="text" id="doc-input" placeholder="Введите текст документа...">
+          <button type="button" onclick="addDocument()">Добавить документ</button>
+        </form>
+      </div>
+    </div>
     
-    <footer>
-        <div class="contact-info">
-            <p>Казань, Большая Красная 55</p>
-            <p>Телефон: 85555553535</p>
-            <p>Email: KAI@kai.ru</p>
-        </div>
-        
-        <div class="social-icons">
-            <a href=""><img src="https://avatars.mds.yandex.net/i?id=cd21c7bc331170ff81e8c0ea9a513d1e144a6fd0-7451251-images-thumbs&n=13&exp=1" alt="VK"></a>
-            <a href="#"><img src="https://avatars.mds.yandex.net/i?id=1fa35ae64e547ed71971097bb12dea26d0c3e1e9-9151930-images-thumbs&n=13&exp=1" alt="Mail"></a>
-            <a href="#"><img src="https://avatars.mds.yandex.net/i?id=addd5f1e1419bcd849ded71e5d63c91096e57fcc-8185766-images-thumbs&n=13&exp=1" alt="Instagram"></a>
-            <a href="#"><img src="https://avatars.mds.yandex.net/i?id=794e9137b65fcf3576f5c1f7c2ca498f5944e56b-9066514-images-thumbs&n=13&exp=1" alt="Github"></a>
-       </div>
-    
-       <div class="copyright">
-            <p>&copy; 2023 Электронная библиотека документов.</p>
-       </div>
-    </footer>
+  </main>
+  <footer>
+    <div class="contact-info">
+      <p>Казань, Большая Красная 55</p>
+      <p>Телефон: 85555553535</p>
+      <p>Email: KAI@kai.ru</p>
+    </div>
+
+    <div>
+      <div class="copyright">
+        <p>&copy; 2023 Электронная библиотека документов.</p>
+        <ul>
+          <li><a href="FAQ.html">FAQ</a></li>
+          <li><a href="#">О нас</a></li>
+          <li><a href="#">Сервисы</a></li>
+          <li><a href="#">Свяжитесь с нами</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Define the openTab function to switch between tabs
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Define the addDocument function to add a new document to the library
+    var documents = [];
+
+    function addDocument() {
+      var docInput = document.getElementById("doc-input");
+      if (docInput.value !== "") {
+        documents.push(docInput.value);
+        displayDocuments("ascending");
+        displayDocuments("descending");
+        docInput.value = "";
+      } else {
+        alert("Введите текст документа");
+      }
+    }
+
+    // Define the displayDocuments function to display all documents in the specified order
+    function displayDocuments(order) {
+      var docList = document.createElement("ul");
+      var docs = documents.slice();
+      if (order === "ascending") {
+        docs.sort().reverse();
+      } else if (order === "descending") {
+        docs.sort();
+      }
+      for (var i = 0; i < docs.length; i++) {
+        var docItem = document.createElement("li");
+        docItem.appendChild(document.createTextNode(docs[i]));
+        docList.appendChild(docItem);
+      }
+      if (order === "ascending") {
+        var newDocs = document.getElementById("new-docs");
+        newDocs.innerHTML = "";
+        newDocs.appendChild(docList);
+      } else if (order === "descending") {
+        var oldDocs = document.getElementById("old-docs");
+        oldDocs.innerHTML = "";
+        oldDocs.appendChild(docList);
+      }
+    }
+    function toggleBlock() {
+      var newBlock = document.getElementById("new-docs-block");
+      var oldBlock = document.getElementById("old-docs-block");
+      if (addBlock.style.display === "none") {
+        addBlock.style.display = "block";
+        if (newBlock.style.display === "block") {
+          newBlock.style.display = "none";
+        } else if (oldBlock.style.display === "block") {
+          oldBlock.style.display = "none";
+        }
+      } else {
+        addBlock.style.display = "none";
+        if (newBlock.style.display === "none") {
+          newBlock.style.display = "block";
+        } else if (oldBlock.style.display === "none") {
+          oldBlock.style.display = "block";
+        }
+      }
+    }
+    var addButton = document.getElementById("add-button");
+    addButton.addEventListener("click", toggleBlock);
+  </script>
+
 </body>
+
 </html>
