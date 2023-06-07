@@ -24,8 +24,9 @@
     <div class="tabs">
       <a href="#" onclick="openTab(event, 'new-docs')"><span class="active">Новые</span></a>
       <a href="#" onclick="openTab(event, 'old-docs')"><span>Старые</span></a>
+      <a href="#" onclick="openTab(event, 'tags')"><span>Теги</span></a>
       <a href="#" onclick="openTab(event, 'add-doc')"><span>Добавить</span></a>
-    </div>    
+    </div>
     <div class="content">
       <div id="new-docs" class="tabcontent">
         <ul>
@@ -38,6 +39,11 @@
           <!-- Здесь отображаются старые документы -->
         </ul>
       </div>
+      <div id="tags" class="tabcontent">
+        <ul>
+          <!-- Здесь отображаются теги -->
+        </ul>
+      </div>
       <div id="add-doc" class="tabcontent">
         <form>
           <input type="text" id="doc-input" placeholder="Введите текст документа...">
@@ -45,7 +51,7 @@
         </form>
       </div>
     </div>
-    
+
   </main>
   <footer>
     <div class="contact-info">
@@ -67,6 +73,28 @@
     </div>
   </footer>
   <script>
+    function loadTags() {
+      fetch('/tags')
+        .then(response => response.json())
+        .then(data => {
+          const tagsContainer = document.getElementById('tags');
+          tagsContainer.innerHTML = data.map(item => {
+            return `
+          <div class="tag-item">
+            <h3>${item.description}</h3>
+            <ul>
+              ${item.tags.map(tag => `<li>${tag}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+          }).join('');
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+
     // Define the openTab function to switch between tabs
     function openTab(evt, tabName) {
       var i, tabcontent, tablinks;
@@ -80,6 +108,9 @@
       }
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
+      if (tabName === 'tags') {
+        loadTags();
+      }
     }
 
     // Define the addDocument function to add a new document to the library
