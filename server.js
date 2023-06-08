@@ -1,28 +1,40 @@
 const express = require('express');
-const app = express();
 const path = require('path');
+const mongoose = require('mongoose');
+const app = express();
 const port = 3000;
 
-// Этот массив будет хранить ваши данные
-let tags = [
-  {
-    "description": "Паспорт РФ 122",
-    "tags": ["Паспорт", "Важное"]
-  },
+app.use(express.json());
 
-  {
-    "description": "СНИЛС",
-    "tags": ["страховка", "Важное"]
-  }];
+app.use(express.static(path.join(__dirname, 'public')));  // указываете здесь путь к папке, где лежит ваш index.html
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+const TagSchema = new mongoose.Schema({
+  description: String,
+  tags: [String]
 });
 
-app.get('/tags', (req, res) => {
+const Tag = mongoose.model('Tag', TagSchema);
+
+mongoose.connect('mongodb://127.0.0.1/tagsDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
+app.get('/tags', async (req, res) => {
+  const tags = await Tag.find();
   res.json(tags);
+});
+
+app.post('/tags', async (req, res) => {
+  const newTag = new Tag({
+    description: req.body.description,
+    tags: req.body.tags
+  });
+
+  try {
+    await newTag.save();
+    res.status(201).json(newTag);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 app.listen(port, () => {

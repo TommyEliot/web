@@ -31,7 +31,6 @@
       <div id="new-docs" class="tabcontent">
         <ul>
           <!-- Здесь отображаются новые документы -->
-
         </ul>
       </div>
       <div id="old-docs" class="tabcontent">
@@ -59,7 +58,6 @@
       <p>Телефон: 85555553535</p>
       <p>Email: KAI@kai.ru</p>
     </div>
-
     <div>
       <div class="copyright">
         <p>&copy; 2023 Электронная библиотека документов.</p>
@@ -77,51 +75,59 @@
     const docInput = document.querySelector('#doc-input');
     const tagsInput = document.querySelector('#tag-input');
     const addButton = document.querySelector('#add-button');
-  
+
     function addDocument(description, parentTabId) {
       const parentTab = document.getElementById(parentTabId);
       const docElement = document.createElement('p');
       docElement.textContent = description;
       parentTab.appendChild(docElement);
     }
-  
+
     function addTag(tag, parentTabId) {
       const parentTab = document.getElementById(parentTabId);
       const tagElement = document.createElement('h2');
       tagElement.textContent = tag;
       parentTab.appendChild(tagElement);
     }
-  
+
     function loadDocuments() {
       return new Promise((resolve, reject) => {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/tags');
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            documents = JSON.parse(xhr.responseText);
+        fetch('/tags')
+          .then(response => response.json())
+          .then(data => {
+            documents = data;
             resolve();
-          } else {
-            reject('Failed to load documents');
-          }
-        };
-        xhr.send();
+          })
+          .catch(err => reject('Failed to load documents'));
       });
     }
-  
+
     function handleAddClick() {
-      const description = document.getElementById('doc-input').value;
-      const tags = document.getElementById('tag-input').value.split(' ');
+      const description = docInput.value;
+      const tags = tagsInput.value.split(' ');
       const newDocument = {
         description: description,
         tags: tags
       };
-      documents.unshift(newDocument);
-      document.getElementById('doc-input').value = '';
-      document.getElementById('tag-input').value = '';
-      displayDocuments();
-      displayTags();
+
+      fetch('/tags', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newDocument)
+      })
+        .then(response => response.json())
+        .then(data => {
+          documents.unshift(data);
+          docInput.value = '';
+          tagsInput.value = '';
+          displayDocuments();
+          displayTags();
+        })
+        .catch(err => console.error('Error:', err));
     }
-  
+
     function clearTabs() {
       const tabIds = ['new-docs', 'old-docs', 'tags'];
       tabIds.forEach(tabId => {
@@ -131,7 +137,7 @@
         }
       });
     }
-  
+
     function displayDocuments() {
       clearTabs();
       documents.forEach((doc) => {
@@ -141,7 +147,7 @@
         addDocument(doc.description, 'old-docs');
       });
     }
-  
+
     function displayTags() {
       const uniqueTags = [...new Set(documents.flatMap(doc => doc.tags))];
       uniqueTags.forEach(tag => {
@@ -149,7 +155,7 @@
         documents.filter(doc => doc.tags.includes(tag)).forEach(doc => addDocument(doc.description, 'tags'));
       });
     }
-  
+
     window.onload = () => {
       loadDocuments()
         .then(() => {
@@ -158,11 +164,9 @@
         })
         .catch(err => console.error(err));
     }
+
     addButton.addEventListener('click', handleAddClick);
   </script>
-  
-  
-
 </body>
 
 </html>
