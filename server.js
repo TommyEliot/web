@@ -3,6 +3,18 @@ const app = express();
 const path = require('path');
 const port = 3000;
 
+// Этот массив будет хранить ваши данные
+let tags = [
+  {
+    "description": "Паспорт РФ 122",
+    "tags": ["Паспорт", "Важное"]
+  },
+
+  {
+    "description": "СНИЛС",
+    "tags": ["страховка", "Важное"]
+  }];
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
@@ -10,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/tags', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'tags.json'));
+  res.json(tags);
 });
 
 app.listen(port, () => {
