@@ -135,10 +135,10 @@
     function displayDocuments() {
       clearTabs();
       documents.forEach((doc) => {
-        addDocument(doc.description, 'old-docs');
+        addDocument(doc.description, 'new-docs');
       });
       [...documents].reverse().forEach((doc) => {
-        addDocument(doc.description, 'new-docs');
+        addDocument(doc.description, 'old-docs');
       });
     }
   
