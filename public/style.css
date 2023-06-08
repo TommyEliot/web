@@ -57,12 +57,12 @@ header {
   }
 
   .tabcontent {
-    display: block;
+    display: none;
     border: 1px solid #ddd;
     padding: 10px;
     width: 450px;
   }
-.tabcontent:last-child{
+.tabcontent:target{
     display: block;
 }
   .tablinks {

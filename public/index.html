@@ -22,10 +22,10 @@
       style="background-image: url(https://cdn.wallpapersafari.com/61/43/r3TMxh.jpg); background-size: cover; height: 500px;">
     </div>
     <div class="tabs">
-      <a href="#" onclick="openTab(event, 'new-docs')"><span class="active">Новые</span></a>
-      <a href="#" onclick="openTab(event, 'old-docs')"><span>Старые</span></a>
-      <a href="#" onclick="openTab(event, 'tags')"><span>Теги</span></a>
-      <a href="#" onclick="openTab(event, 'add-doc')"><span>Добавить</span></a>
+      <a href="#new-docs"><span class="active">Новые</span></a>
+      <a href="#old-docs"><span>Старые</span></a>
+      <a href="#tags"><span>Теги</span></a>
+      <a href="#add-doc"><span>Добавить</span></a>
     </div>
     <div class="content">
       <div id="new-docs" class="tabcontent">
@@ -46,12 +46,12 @@
       </div>
       <div id="add-doc" class="tabcontent">
         <form>
-          <input type="text" id="doc-input" placeholder="Введите текст документа...">
-          <button type="button" onclick="addDocument()">Добавить документ</button>
+          <input type="text" id='doc-input' placeholder="Введите текст документа...">
+          <input type="text" id='tag-input' placeholder="Введите теги через пробел...">
+          <button type="button" id='add-button'>Добавить документ</button>
         </form>
       </div>
     </div>
-
   </main>
   <footer>
     <div class="contact-info">
@@ -73,107 +73,95 @@
     </div>
   </footer>
   <script>
-    function loadTags() {
-      fetch('/tags')
-        .then(response => response.json())
-        .then(data => {
-          const tagsContainer = document.getElementById('tags');
-          tagsContainer.innerHTML = data.map(item => {
-            return `
-          <div class="tag-item">
-            <h3>${item.description}</h3>
-            <ul>
-              ${item.tags.map(tag => `<li>${tag}</li>`).join('')}
-            </ul>
-          </div>
-        `;
-          }).join('');
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
-
-
-    // Define the openTab function to switch between tabs
-    function openTab(evt, tabName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
-      if (tabName === 'tags') {
-        loadTags();
-      }
-    }
-
-    // Define the addDocument function to add a new document to the library
     var documents = [];
-
-    function addDocument() {
-      var docInput = document.getElementById("doc-input");
-      if (docInput.value !== "") {
-        documents.push(docInput.value);
-        displayDocuments("ascending");
-        displayDocuments("descending");
-        docInput.value = "";
-      } else {
-        alert("Введите текст документа");
-      }
+    const docInput = document.querySelector('#doc-input');
+    const tagsInput = document.querySelector('#tag-input');
+    const addButton = document.querySelector('#add-button');
+  
+    function addDocument(description, parentTabId) {
+      const parentTab = document.getElementById(parentTabId);
+      const docElement = document.createElement('p');
+      docElement.textContent = description;
+      parentTab.appendChild(docElement);
     }
-
-    // Define the displayDocuments function to display all documents in the specified order
-    function displayDocuments(order) {
-      var docList = document.createElement("ul");
-      var docs = documents.slice();
-      if (order === "ascending") {
-        docs.sort().reverse();
-      } else if (order === "descending") {
-        docs.sort();
-      }
-      for (var i = 0; i < docs.length; i++) {
-        var docItem = document.createElement("li");
-        docItem.appendChild(document.createTextNode(docs[i]));
-        docList.appendChild(docItem);
-      }
-      if (order === "ascending") {
-        var newDocs = document.getElementById("new-docs");
-        newDocs.innerHTML = "";
-        newDocs.appendChild(docList);
-      } else if (order === "descending") {
-        var oldDocs = document.getElementById("old-docs");
-        oldDocs.innerHTML = "";
-        oldDocs.appendChild(docList);
-      }
+  
+    function addTag(tag, parentTabId) {
+      const parentTab = document.getElementById(parentTabId);
+      const tagElement = document.createElement('h2');
+      tagElement.textContent = tag;
+      parentTab.appendChild(tagElement);
     }
-    function toggleBlock() {
-      var newBlock = document.getElementById("new-docs-block");
-      var oldBlock = document.getElementById("old-docs-block");
-      if (addBlock.style.display === "none") {
-        addBlock.style.display = "block";
-        if (newBlock.style.display === "block") {
-          newBlock.style.display = "none";
-        } else if (oldBlock.style.display === "block") {
-          oldBlock.style.display = "none";
+  
+    function loadDocuments() {
+      return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/tags.json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            documents = JSON.parse(xhr.responseText);
+            resolve();
+          } else {
+            reject('Failed to load documents');
+          }
+        };
+        xhr.send();
+      });
+    }
+  
+    function handleAddClick() {
+      const description = document.getElementById('doc-input').value;
+      const tags = document.getElementById('tag-input').value.split(' ');
+      const newDocument = {
+        description: description,
+        tags: tags
+      };
+      documents.unshift(newDocument);
+      document.getElementById('doc-input').value = '';
+      document.getElementById('tag-input').value = '';
+      displayDocuments();
+      displayTags();
+    }
+  
+    function clearTabs() {
+      const tabIds = ['new-docs', 'old-docs', 'tags'];
+      tabIds.forEach(tabId => {
+        const tab = document.getElementById(tabId);
+        while (tab.firstChild) {
+          tab.firstChild.remove();
         }
-      } else {
-        addBlock.style.display = "none";
-        if (newBlock.style.display === "none") {
-          newBlock.style.display = "block";
-        } else if (oldBlock.style.display === "none") {
-          oldBlock.style.display = "block";
-        }
-      }
+      });
     }
-    var addButton = document.getElementById("add-button");
-    addButton.addEventListener("click", toggleBlock);
+  
+    function displayDocuments() {
+      clearTabs();
+      documents.forEach((doc) => {
+        addDocument(doc.description, 'old-docs');
+      });
+      [...documents].reverse().forEach((doc) => {
+        addDocument(doc.description, 'new-docs');
+      });
+    }
+  
+    function displayTags() {
+      const uniqueTags = [...new Set(documents.flatMap(doc => doc.tags))];
+      uniqueTags.forEach(tag => {
+        addTag(tag, 'tags');
+        documents.filter(doc => doc.tags.includes(tag)).forEach(doc => addDocument(doc.description, 'tags'));
+      });
+    }
+  
+    window.onload = () => {
+      loadDocuments()
+        .then(() => {
+          displayDocuments();
+          displayTags();
+        })
+        .catch(err => console.error(err));
+    }
+    addButton.addEventListener('click', handleAddClick);
   </script>
+  
+  
 
 </body>
 
