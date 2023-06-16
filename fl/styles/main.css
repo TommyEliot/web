@@ -1,0 +1,129 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #f1f1f1;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	/* добавляем тень */
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	/* изменяем на flex, чтобы ссылки были в ряд */
+}
+
+nav ul li {
+	margin-right: 20px;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: #000;
+	font-weight: bold;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	height: 50px;
+	margin-right: 10px;
+}
+
+.logo h1 {
+	font-size: 28px;
+	margin: 0;
+}
+
+main {
+	max-width: 100%;
+	margin: 20px auto;
+	padding: 0 20px;
+	background-color: #f1f1f1;
+	/* добавляем цвет фона */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	/* добавляем тень */
+}
+
+footer {
+	background-color: #002244;
+	/* меняем цвет на темно-синий */
+	color: white;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 18px;
+	box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+	/* добавляем тень */
+	position: fixed;
+	/* Прикрепляем подвал к низу страницы */
+	bottom: 0;
+	/* Устанавливаем нижнее положение на ноль */
+	width: 100%;
+	/* Подвал теперь занимает всю ширину страницы */
+}
+
+.buttonStyle {
+	width: 150px;
+}
+
+input {
+	width: 200px;
+}
+
+.tabs a span {
+	display: inline-block;
+	border-radius: 5px 5px 0 0;
+	width: 100px;
+	margin-right: 10px;
+	text-align: center;
+	background: #ddd;
+	padding: 5px;
+}
+
+.tabcontent {
+	display: none;
+}
+
+.active {
+	background: #ccc;
+}
+
+/* ... */
+.mainTheme {
+	/* Ваши стили для .mainTheme здесь */
+	padding: 10px;
+	background-color: #ffffff; /* Пример цвета фона */
+  }
+  
+  .showPictures {
+	/* Ваши стили для .showPictures здесь */
+	display: flex;
+	flex-direction: column; /* элементы идут в столбик */
+	align-items: center; /* центрируем элементы по горизонтали */
+  }
+  
+  .buttonStyle {
+	/* Ваши стили для .buttonStyle здесь */
+	padding: 10px;
+	background-color: #2227b4; /* Пример цвета фона */
+	color: white; /* Цвет текста */
+	border: none;
+	cursor: pointer; /* Стиль курсора */
+	text-align: center; /* Выравнивание текста по центру */
+  }
+  
+  .photos {
+	/* Ваши стили для .photos здесь */
+	display: flex;
+	flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+	justify-content: center; /* центрируем элементы по горизонтали */
+	padding: 10px;
+  }
+  /* ... */
+  
